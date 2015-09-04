@@ -12,6 +12,16 @@ var imagemin      = require('gulp-imagemin');
 var plumber       = require('gulp-plumber');
 var notify        = require('gulp-notify');
 
+var onError = function(err) {
+    notify.onError({
+      title: 'Gulp',
+      subtitle: 'Failure!',
+      message: 'Error: <%= error.message%>',
+      sound: 'beep'
+    })(err);
+    this.emit('end');
+}
+
 // declare file structure
 
 var jsFiles       = 'javascripts/*.js';
@@ -34,7 +44,8 @@ gulp.task('imagemin', function() {
 
 gulp.task('styles', function() {
   return gulp.src(sassFiles)
-    .pipe(sass().on('error', sass.logError))
+    .pipe(plumber({errorHandler: onError}))
+    .pipe(sass())
     .pipe(autoprefixer())
     .pipe(gulp.dest('./stylesheets/css'))
     .pipe(browserSync.stream());
@@ -46,17 +57,6 @@ gulp.task('html', function() {
 });
 
 gulp.task('js', function() {
-
-  var onError = function(err) {
-    notify.onError({
-      title: 'Gulp',
-      subtitle: 'Failure!',
-      message: 'Error: <%= error.message%>',
-      sound: 'beep'
-    })(err);
-    this.emit('end');
-  }
-
   return gulp.src(jsFiles)
     .pipe(plumber({errorHandler: onError}))
     .pipe(jshint())

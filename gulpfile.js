@@ -9,6 +9,8 @@ var sass          = require('gulp-sass');
 var uglify        = require('gulp-uglify');
 var stylish       = require('jshint-stylish');
 var imagemin      = require('gulp-imagemin');
+var plumber       = require('gulp-plumber');
+var notify        = require('gulp-notify');
 
 // declare file structure
 
@@ -44,7 +46,19 @@ gulp.task('html', function() {
 });
 
 gulp.task('js', function() {
+
+  var onError = function(err) {
+    notify.onError({
+      title: 'Gulp',
+      subtitle: 'Failure!',
+      message: 'Error: <%= error.message%>',
+      sound: 'beep'
+    })(err);
+    this.emit('end');
+  }
+
   return gulp.src(jsFiles)
+    .pipe(plumber({errorHandler: onError}))
     .pipe(jshint())
     .pipe(jshint.reporter(stylish))
     .pipe(uglify())

@@ -8,15 +8,17 @@ var sass          = require('gulp-sass');
 var uglify        = require('gulp-uglify');
 var stylish       = require('jshint-stylish');
 var imagemin      = require('gulp-imagemin');
+var svgmin        = require('gulp-svgmin');
 var plumber       = require('gulp-plumber');
 var notify        = require('gulp-notify');
 var connectPHP    = require('gulp-connect-php');
 
 // FILE STRUCTURE
 var jsFiles       = 'app/javascripts/*.js';
-var sassFiles     = 'app/stylesheets/sass/*.scss';                        
+var sassFiles     = 'app/stylesheets/sass/*.scss';
 var imageFiles    = 'app/images/*.{png, jpg, gif}';
 var phpFiles      = 'app/**/*.php';
+var svgFiles      = 'app/images/*.svg'
 
 var onError = function(err) {
     notify.onError({
@@ -37,10 +39,17 @@ gulp.task('connectPHP', function(){
 });
 
 gulp.task('serve', ['connectPHP'], function() {
-  notify: true,  
+  notify: true,
   browserSync({
     proxy: 'localhost:8000'
   });
+});
+
+gulp.task('svgmin', function() {
+    return gulp.src(svgFiles)
+      .pipe(svgmin())
+      .pipe(gulp.dest('./app/images'))
+      .pipe(browserSync.stream());
 });
 
 gulp.task('imagemin', function() {
@@ -82,6 +91,7 @@ gulp.task('watch', function() {
   gulp.watch(sassFiles, ['styles']);
   gulp.watch(jsFiles, ['js']);
   gulp.watch(imageFiles, ['imagemin']);
+  gulp.watch(svgFiles, ['svgmin']);
 });
 
-gulp.task('default', ['watch', 'styles', 'php', 'js', 'imagemin','serve']);
+gulp.task('default', ['watch', 'styles', 'php', 'js', 'imagemin','svgmin', 'serve']);

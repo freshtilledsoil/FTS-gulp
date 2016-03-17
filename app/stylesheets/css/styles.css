@@ -1,3 +1,7 @@
 body {
   background: gold;
-  color: black; }
+  color: black;
+  font-family: 'open sans'; }
+
+h1 {
+  font-family: 'open sans'; }

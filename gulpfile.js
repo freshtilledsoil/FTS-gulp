@@ -1,17 +1,27 @@
 // GULP & PLUGINS
 var gulp          = require('gulp');
+
 var browserSync   = require('browser-sync');
-var autoprefixer  = require('gulp-autoprefixer');
-var concat        = require('gulp-concat');
-var jshint        = require ('gulp-jshint');
-var sass          = require('gulp-sass');
-var uglify        = require('gulp-uglify');
-var stylish       = require('jshint-stylish');
-var imagemin      = require('gulp-imagemin');
-var svgmin        = require('gulp-svgmin');
+var connectPHP    = require('gulp-connect-php');
 var plumber       = require('gulp-plumber');
 var notify        = require('gulp-notify');
-var connectPHP    = require('gulp-connect-php');
+
+var sass          = require('gulp-sass');
+var autoprefixer  = require('gulp-autoprefixer');
+var concat        = require('gulp-concat');
+
+var babelify      = require('babelify');
+var browserify    = require('browserify');
+var buffer        = require('vinyl-buffer');
+var source        = require('vinyl-source-stream');
+var sourcemaps    = require('gulp-sourcemaps');
+var uglify        = require('gulp-uglify');
+// // need to include
+// var jshint        = require('gulp-jshint');
+// var stylish       = require('jshint-stylish');
+
+var imagemin      = require('gulp-imagemin');
+var svgmin        = require('gulp-svgmin');
 
 // FILE STRUCTURE
 var jsFiles       = 'app/javascripts/*.js';
@@ -27,7 +37,7 @@ var onError = function(err) {
       message: 'Error: <%= error.message%>',
       sound: 'beep'
     })(err);
-    this.emit('end');
+    // this.emit('end');
 }
 
 gulp.task('connectPHP', function(){
@@ -73,25 +83,30 @@ gulp.task('php', function() {
     .pipe(browserSync.stream());
 });
 
-gulp.task('js', function() {
-  return gulp.src(jsFiles)
-    .pipe(plumber({errorHandler: onError}))
-    .pipe(jshint())
-    .pipe(jshint.reporter(stylish))
-    .pipe(concat('app.js'))
-    .pipe(gulp.dest('./app/javascripts/dist'))
-    .pipe(uglify())
-    .pipe(concat('app.min.js'))
+
+gulp.task('es6', function(){
+  return browserify('./app/javascripts/app.js')
+    .transform(babelify.configure({ presets: ['es2015', 'react']}))
+    .bundle()
+    .on('error', function(error) {
+      onError(error);
+      this.emit('end');
+    }) // Don't crash if failed, plumber doesn't like browserify
+    .pipe(source('app.js'))
+    .pipe(buffer())
+    .pipe(sourcemaps.init({ loadMaps: true }))
+    // .pipe(uglify()) // Use any gulp plugins you want now, // uncomment for production minification
+    .pipe(sourcemaps.write('./'))
     .pipe(gulp.dest('./app/javascripts/dist'))
     .pipe(browserSync.stream());
 });
 
 gulp.task('watch', function() {
-  gulp.watch(phpFiles, ['php'] );
-  gulp.watch(sassFiles, ['styles']);
-  gulp.watch(jsFiles, ['js']);
+  gulp.watch(phpFiles,   ['php'] );
+  gulp.watch(sassFiles,  ['styles']);
+  gulp.watch(jsFiles,    ['es6']);
   gulp.watch(imageFiles, ['imagemin']);
-  gulp.watch(svgFiles, ['svgmin']);
+  gulp.watch(svgFiles,   ['svgmin']);
 });
 
-gulp.task('default', ['watch', 'styles', 'php', 'js', 'imagemin','svgmin', 'serve']);
+gulp.task('default', ['watch', 'serve', 'styles', 'es6']);

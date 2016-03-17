@@ -17,7 +17,8 @@
 <body>
 
 	<h1>FTS-hello</h1>
+  <div id="app"></div>
 
-<script type="text/javascript" src="javascripts/dist/app.min.js"></script>
+<script async src="javascripts/dist/app.js"></script>
 </body>
 </html>

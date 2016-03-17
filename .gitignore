@@ -51,6 +51,6 @@ readme.html
 license.txt
 
 # project
-javascripts/dist/
-stylesheets/css/
+app/javascripts/dist/
+app/stylesheets/css/
 

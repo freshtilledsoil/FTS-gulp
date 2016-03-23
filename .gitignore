@@ -25,7 +25,7 @@ Session.vim
 .Trashes
 
 # Windows
-Thumbs.db 
+Thumbs.db
 Desktop.ini
 
 # SVN
@@ -53,4 +53,3 @@ license.txt
 # project
 app/javascripts/dist/
 app/stylesheets/css/
-

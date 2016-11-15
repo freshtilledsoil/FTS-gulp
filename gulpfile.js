@@ -20,8 +20,8 @@ var svgmin        = require('gulp-svgmin');
 
 // FILE STRUCTURE
 var htmlFiles     = 'src/*.html';
-var jsFiles       = ['src/assets/javascript/**/*.js', '!src/assets/javascript/dist/*'];
-var sassFiles     = 'src/assets/stylesheets/sass/**/*.scss';
+var jsFiles       = 'src/assets/javascript/**/*.js';
+var sassFiles     = 'src/assets/stylesheets/**/*.scss';
 var imageFiles    = 'src/assets/images/*.{png, jpg, gif}';
 var svgFiles      = 'src/assets/images/*.svg'
 
@@ -37,7 +37,7 @@ var onError = function(err) {
 gulp.task('serve', function() {
   browserSync.init({
     server: {
-      baseDir: "./src"
+      baseDir: "./dist"
     },
     open: false
   });
@@ -46,6 +46,7 @@ gulp.task('serve', function() {
 
 gulp.task('html', function(){
   return gulp.src(htmlFiles)
+    .pipe(gulp.dest('./dist'))
     .pipe(browserSync.stream());
 });
 
@@ -53,7 +54,7 @@ gulp.task('html', function(){
 gulp.task('svgmin', function() {
   return gulp.src(svgFiles)
     .pipe(svgmin())
-    .pipe(gulp.dest('./src/assets/images'))
+    .pipe(gulp.dest('./dist/assets/images'))
     .pipe(browserSync.stream());
 });
 
@@ -61,7 +62,7 @@ gulp.task('svgmin', function() {
 gulp.task('imagemin', function() {
   return gulp.src(imageFiles)
     .pipe(imagemin())
-    .pipe(gulp.dest('./src/assets/images'))
+    .pipe(gulp.dest('./dist/assets/images'))
     .pipe(browserSync.stream());
 });
 
@@ -73,7 +74,7 @@ gulp.task('styles', function() {
     .pipe(autoprefixer())
     .pipe(cleanCSS())
     .pipe(rename({suffix: '.min'}))
-    .pipe(gulp.dest('./src/assets/stylesheets/dist'))
+    .pipe(gulp.dest('./dist/assets/stylesheets/'))
     .pipe(browserSync.stream());
 });
 
@@ -92,7 +93,7 @@ gulp.task('es6', function(){
     .pipe(uglify())
     .pipe(sourcemaps.write('./'))
     .pipe(rename({suffix: '.min'}))
-    .pipe(gulp.dest('./src/assets/javascript/dist'))
+    .pipe(gulp.dest('./dist/assets/javascript'))
     .pipe(browserSync.stream());
 });
 
@@ -105,5 +106,5 @@ gulp.task('watch', function() {
   gulp.watch(svgFiles,   ['svgmin']);
 });
 
-gulp.task('build', ['styles', 'es6', 'imagemin', 'svgmin'])
+gulp.task('build', ['html', 'styles', 'es6', 'imagemin', 'svgmin'])
 gulp.task('default', ['watch', 'serve', 'build']);

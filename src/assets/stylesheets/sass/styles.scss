@@ -1,0 +1,29 @@
+/* Base
+----------------------------------------------*/
+body {
+  background: white;
+  color: black;
+  font-family: 'open sans';
+  transition: ease 0.2s all;
+}
+
+/* Typography
+----------------------------------------------*/
+
+h1 {
+  font-family: 'open sans', 'serif';
+}
+
+/* Lists
+----------------------------------------------*/
+.list-reset {
+  list-style-type: none;
+  margin: 0;
+  padding: 0;
+}
+
+/* Footer
+----------------------------------------------*/
+footer {
+  margin-top: 1em;
+}

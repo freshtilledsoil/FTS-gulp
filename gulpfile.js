@@ -26,16 +26,17 @@ var imageFiles    = 'src/assets/images/*.{png, jpg, gif}';
 var svgFiles      = 'src/assets/images/*.svg';
 
 
-var onError = function(err) {
+var onError = function ( err ) {
   notify.onError({
     title: 'Gulp',
-    subtitle: 'Failure!',
+    subtitle: 'What did you do, Ray? aka: Failure...',
     message: 'Error: <%= error.message%>',
     sound: 'beep'
-  })(err);
+  })( err );
 };
 
-gulp.task('serve', function() {
+
+gulp.task('serve', function () {
   browserSync.init({
     server: {
       baseDir: "./dist"
@@ -45,14 +46,14 @@ gulp.task('serve', function() {
 });
 
 
-gulp.task('html', function(){
+gulp.task('html', function () {
   return gulp.src(htmlFiles)
     .pipe(gulp.dest('./dist'))
     .pipe(browserSync.stream());
 });
 
 
-gulp.task('svgmin', function() {
+gulp.task('svgmin', function () {
   return gulp.src(svgFiles)
     .pipe(svgmin())
     .pipe(gulp.dest('./dist/assets/images'))
@@ -60,7 +61,7 @@ gulp.task('svgmin', function() {
 });
 
 
-gulp.task('imagemin', function() {
+gulp.task('imagemin', function () {
   return gulp.src(imageFiles)
     .pipe(imagemin())
     .pipe(gulp.dest('./dist/assets/images'))
@@ -68,7 +69,7 @@ gulp.task('imagemin', function() {
 });
 
 
-gulp.task('styles', function() {
+gulp.task('styles', function () {
   return gulp.src(sassFiles)
     .pipe(plumber({errorHandler: onError}))
     .pipe(sass())
@@ -80,11 +81,11 @@ gulp.task('styles', function() {
 });
 
 
-gulp.task('es6', function(){
+gulp.task('es6', function () {
   return browserify('./src/assets/javascript/index.js')
-    .transform(babelify.configure({ presets: ['es2015']}))
+    .transform(babelify.configure({ presets: ['es2015'] }))
     .bundle()
-    .on('error', function(error) {
+    .on('error', function ( error ) {
       onError(error);
       this.emit('end');
     })
@@ -99,13 +100,14 @@ gulp.task('es6', function(){
 });
 
 
-gulp.task('watch', function() {
+gulp.task('watch', function () {
   gulp.watch(htmlFiles,  ['html']);
   gulp.watch(sassFiles,  ['styles']);
   gulp.watch(jsFiles,    ['es6']);
   gulp.watch(imageFiles, ['imagemin']);
   gulp.watch(svgFiles,   ['svgmin']);
 });
+
 
 gulp.task('build', ['html', 'styles', 'es6', 'imagemin', 'svgmin'])
 gulp.task('default', ['watch', 'serve', 'build']);

@@ -23,7 +23,8 @@ var htmlFiles     = 'src/*.html';
 var jsFiles       = 'src/assets/javascript/**/*.js';
 var sassFiles     = 'src/assets/stylesheets/**/*.scss';
 var imageFiles    = 'src/assets/images/*.{png, jpg, gif}';
-var svgFiles      = 'src/assets/images/*.svg'
+var svgFiles      = 'src/assets/images/*.svg';
+
 
 var onError = function(err) {
   notify.onError({
@@ -32,7 +33,7 @@ var onError = function(err) {
     message: 'Error: <%= error.message%>',
     sound: 'beep'
   })(err);
-}
+};
 
 gulp.task('serve', function() {
   browserSync.init({

@@ -17,6 +17,7 @@ var sourcemaps    = require('gulp-sourcemaps');
 var uglify        = require('gulp-uglify');
 var imagemin      = require('gulp-imagemin');
 var svgmin        = require('gulp-svgmin');
+var del           = require('del');
 
 // FILE STRUCTURE
 var htmlFiles     = 'src/*.html';
@@ -108,6 +109,20 @@ gulp.task('watch', function () {
   gulp.watch(svgFiles,   ['svgmin']);
 });
 
+gulp.task('clean', function() {
+  return del('dist');
+});
 
-gulp.task('build', ['html', 'styles', 'es6', 'imagemin', 'svgmin']);
-gulp.task('default', ['watch', 'serve', 'build']);
+gulp.task('build', [
+  'html',
+  'styles',
+  'es6',
+  'imagemin',
+  'svgmin'
+]);
+
+gulp.task('default', [
+  'watch',
+  'serve',
+  'build'
+]);

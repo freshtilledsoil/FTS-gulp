@@ -19,4 +19,7 @@ gulp
 
 // Build dist folder
 gulp build
+
+// Delete dist folder
+gulp clean
 ```

@@ -20,10 +20,10 @@ var svgmin        = require('gulp-svgmin');
 
 // FILE STRUCTURE
 var htmlFiles     = 'src/*.html';
-var jsFiles       = 'src/assets/javascript/**/*.js';
-var sassFiles     = 'src/assets/stylesheets/**/*.scss';
+var jsFiles       = 'src/assets/js/**/*.js';
+var sassFiles     = 'src/assets/css/**/*.scss';
 var imageFiles    = 'src/assets/images/*.{png, jpg, gif}';
-var svgFiles      = 'src/assets/images/*.svg';
+var svgFiles      = 'src/assets/icons/*.svg';
 
 
 var onError = function ( err ) {
@@ -76,26 +76,26 @@ gulp.task('styles', function () {
     .pipe(autoprefixer())
     .pipe(cleanCSS())
     .pipe(rename({suffix: '.min'}))
-    .pipe(gulp.dest('./dist/assets/stylesheets/'))
+    .pipe(gulp.dest('./dist/assets/css/'))
     .pipe(browserSync.stream());
 });
 
 
 gulp.task('es6', function () {
-  return browserify('./src/assets/javascript/index.js')
+  return browserify('./src/assets/js/app.js')
     .transform(babelify.configure({ presets: ['es2015'] }))
     .bundle()
     .on('error', function ( error ) {
       onError(error);
       this.emit('end');
     })
-    .pipe(source('index.js'))
+    .pipe(source('app.js'))
     .pipe(buffer())
     .pipe(sourcemaps.init({ loadMaps: true }))
     .pipe(uglify())
     .pipe(sourcemaps.write('./'))
     .pipe(rename({suffix: '.min'}))
-    .pipe(gulp.dest('./dist/assets/javascript'))
+    .pipe(gulp.dest('./dist/assets/js'))
     .pipe(browserSync.stream());
 });
 
@@ -109,5 +109,5 @@ gulp.task('watch', function () {
 });
 
 
-gulp.task('build', ['html', 'styles', 'es6', 'imagemin', 'svgmin'])
+gulp.task('build', ['html', 'styles', 'es6', 'imagemin', 'svgmin']);
 gulp.task('default', ['watch', 'serve', 'build']);

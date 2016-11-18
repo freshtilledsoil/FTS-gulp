@@ -22,7 +22,7 @@ var fileinclude   = require('gulp-file-include');
 
 
 // FILE STRUCTURE
-var htmlFiles     = 'src/*.html';
+var htmlFiles     = 'src/**/*.html';
 var jsFiles       = 'src/assets/js/**/*.js';
 var sassFiles     = 'src/assets/css/**/*.scss';
 var imageFiles    = 'src/assets/images/*.{png, jpg, gif}';

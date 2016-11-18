@@ -103,17 +103,18 @@ gulp.task('es6', function () {
 });
 
 gulp.task('fileinclude', function() {
-  gulp.src(['src/index.html'])
+  gulp.src(['src/*.html'])
     .pipe(fileinclude({
       prefix: '@@',
       basepath: '@file'
     }))
-    .pipe(gulp.dest('dist/'));
+    .pipe(gulp.dest('dist/'))
+    .pipe(browserSync.stream());
 });
 
 
 gulp.task('watch', function () {
-  gulp.watch(htmlFiles,  ['html']);
+  gulp.watch(htmlFiles,  ['fileinclude']);
   gulp.watch(sassFiles,  ['styles']);
   gulp.watch(jsFiles,    ['es6']);
   gulp.watch(imageFiles, ['imagemin']);
@@ -125,7 +126,6 @@ gulp.task('clean', function() {
 });
 
 gulp.task('build', [
-  'html',
   'fileinclude',
   'styles',
   'es6',

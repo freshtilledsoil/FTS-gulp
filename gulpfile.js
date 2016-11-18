@@ -18,6 +18,8 @@ var uglify        = require('gulp-uglify');
 var imagemin      = require('gulp-imagemin');
 var svgmin        = require('gulp-svgmin');
 var del           = require('del');
+var fileinclude   = require('gulp-file-include');
+
 
 // FILE STRUCTURE
 var htmlFiles     = 'src/*.html';
@@ -100,6 +102,15 @@ gulp.task('es6', function () {
     .pipe(browserSync.stream());
 });
 
+gulp.task('fileinclude', function() {
+  gulp.src(['src/index.html'])
+    .pipe(fileinclude({
+      prefix: '@@',
+      basepath: '@file'
+    }))
+    .pipe(gulp.dest('dist/'));
+});
+
 
 gulp.task('watch', function () {
   gulp.watch(htmlFiles,  ['html']);
@@ -115,6 +126,7 @@ gulp.task('clean', function() {
 
 gulp.task('build', [
   'html',
+  'fileinclude',
   'styles',
   'es6',
   'imagemin',

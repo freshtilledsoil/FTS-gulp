@@ -19,6 +19,7 @@
     "gulp-clean-css": "^2.0.13",
     "gulp-concat": "^2.6.0",
     "gulp-connect-php": "0.0.7",
+    "gulp-file-include": "^1.0.0",
     "gulp-if": "^2.0.0",
     "gulp-imagemin": "^2.3.0",
     "gulp-notify": "^2.2.0",

@@ -1,7 +1,6 @@
 // GULP & PLUGINS
 var gulp          = require('gulp');
 var browserSync   = require('browser-sync');
-var connectPHP    = require('gulp-connect-php');
 var plumber       = require('gulp-plumber');
 var notify        = require('gulp-notify');
 var sass          = require('gulp-sass');
@@ -9,15 +8,14 @@ var autoprefixer  = require('gulp-autoprefixer');
 var rename        = require('gulp-rename');
 var cleanCSS      = require('gulp-clean-css');
 var concat        = require('gulp-concat');
-var babelify      = require('babelify');
-var browserify    = require('browserify');
-var buffer        = require('vinyl-buffer');
-var source        = require('vinyl-source-stream');
-var sourcemaps    = require('gulp-sourcemaps');
 var uglify        = require('gulp-uglify');
+var webpack       = require('webpack-stream');
 var imagemin      = require('gulp-imagemin');
 var svgmin        = require('gulp-svgmin');
 var del           = require('del');
+var path          = require('path');
+
+
 
 // FILE STRUCTURE
 var htmlFiles     = 'src/*.html';
@@ -83,21 +81,25 @@ gulp.task('styles', function () {
 
 
 gulp.task('es6', function () {
-  return browserify('./src/assets/js/app.js')
-    .transform(babelify.configure({ presets: ['es2015'] }))
-    .bundle()
-    .on('error', function ( error ) {
-      onError(error);
-      this.emit('end');
-    })
-    .pipe(source('app.js'))
-    .pipe(buffer())
-    .pipe(sourcemaps.init({ loadMaps: true }))
-    .pipe(uglify())
-    .pipe(sourcemaps.write('./'))
-    .pipe(rename({suffix: '.min'}))
-    .pipe(gulp.dest('./dist/assets/js'))
-    .pipe(browserSync.stream());
+  return gulp.src('./src/assets/js/app.js')
+  .pipe(webpack({
+    output: {
+      filename: 'bundle.min.js'
+    },
+    module: {
+      loaders: [
+        {
+          test: /\.js$/,
+          loader: 'babel-loader?presets[]=es2015',
+          include: [ path.resolve(__dirname, "src") ],
+          exclude: /node-modules/
+        }
+      ]
+    },
+  }))
+  .pipe(uglify())
+  .pipe(gulp.dest('./dist/assets/js/'))
+  .pipe(browserSync.stream());
 });
 
 

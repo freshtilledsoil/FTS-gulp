@@ -1,6 +1,8 @@
-import Example from './vendor/Example';
 
-var x = new Example();
-x.speak();
+import RedditApi from './files/reddit-api'
 
-const howdy = 'this is a string about howdy';
+
+RedditApi.load()
+
+
+export default {}

@@ -5,27 +5,23 @@
   "path": "."
 })
 
-<div class="page">
+      <header>
+        <h1>
+          FTS-gulp
+        </h1>
+      </header>
 
-  <header>
-    <h1>
-      FTS-gulp
-    </h1>
-  </header>
+      <main id="app" role="main" aria-label="content">
 
-  <main id="app" role="main" aria-label="content">
+        <h2>
+          Example starter for projects.
+        </h2>
 
-    <h2>
-      Example starter for projects.
-    </h2>
+        <ul>
+          @@loop('./g-include/loop--cards.html', './g-include/loop--cards.json')
+        </ul>
 
-    <ul>
-      @@loop('./g-include/loop--cards.html', './g-include/loop--cards.json')
-    </ul>
-
-  </main>
-
-</div> <!-- /.page -->
+      </main>
 
 @@include('./g-include/app--wrap--end.html', {
   "jsPreApp": "<script src='https://ajax.googleapis.com/ajax/libs/jquery/3.1.1/jquery.min.js'></script>",

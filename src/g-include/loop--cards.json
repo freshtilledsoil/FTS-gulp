@@ -1,11 +1,13 @@
 [
   {
+    "tag": "li",
     "name": "Title 1",
     "text": "text goes here",
     "url": "something.html",
     "img": "#"
   },
   {
+    "tag": "li",
     "name": "Title 2",
     "text": "text goes here",
     "url": "something-else.html",

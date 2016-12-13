@@ -1,0 +1,14 @@
+[
+  {
+    "name": "Title 1",
+    "text": "text goes here",
+    "url": "something.html",
+    "img": "#"
+  },
+  {
+    "name": "Title 2",
+    "text": "text goes here",
+    "url": "something-else.html",
+    "img": "#"
+  }
+]

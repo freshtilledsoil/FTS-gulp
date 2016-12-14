@@ -6,7 +6,6 @@ var browserSync   = require('browser-sync');
 var buffer        = require('vinyl-buffer');
 var cleanCSS      = require('gulp-clean-css');
 var concat        = require('gulp-concat');
-// var connectPHP    = require('gulp-connect-php');
 var del           = require('del');
 var fileinclude   = require('gulp-file-include');
 var gulp          = require('gulp');

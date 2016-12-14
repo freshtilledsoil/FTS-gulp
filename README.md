@@ -23,3 +23,11 @@ gulp build
 // Delete dist folder
 gulp clean
 ```
+
+## Project Structure
+
+All development is limited to the `src` folder.
+Running the `gulp` command will compile and build a `dist` folder which
+is referenced via the built in server [localhost:3000](http://localhost:3000).
+
+ 

@@ -1,0 +1,8 @@
+{
+"extends" : "stylelint-config-standard",
+"rules" : {
+  "declaration-block-properties-order" : "alphabetical",
+  "max-line-length" : 80,
+  "number-leading-zero" : "never"
+  }
+}

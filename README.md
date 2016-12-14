@@ -51,6 +51,7 @@ Moves font files to `/dist` folder.
 
 ### styles()
 [gulp-sass](https://www.npmjs.com/package/gulp-sass)
+
 [gulp-autorprefixer](https://www.npmjs.com/package/gulp-autoprefixer)
 
 ### concat()

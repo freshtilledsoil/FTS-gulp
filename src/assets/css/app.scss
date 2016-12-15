@@ -1,5 +1,5 @@
 /* Base
-----------------------------------------------*/
+---------------------------------------------- */
 body {
   background: white;
   color: black;
@@ -8,14 +8,14 @@ body {
 }
 
 /* Typography
-----------------------------------------------*/
+---------------------------------------------- */
 
 h1 {
   font-family: 'open sans', 'serif';
 }
 
 /* Lists
-----------------------------------------------*/
+---------------------------------------------- */
 .list-reset {
   list-style-type: none;
   margin: 0;
@@ -23,12 +23,10 @@ h1 {
 }
 
 /* Footer
-----------------------------------------------*/
+---------------------------------------------- */
 footer {
   margin-top: 1em;
 }
-
-
 
 /*
   Tab Demo Specific
@@ -44,14 +42,12 @@ footer {
 }
 
 .tab-list {
-  display: -ms-flexbox;
-  display: -webkit-flex;
+  border: none;
+  border-bottom: none;
   display: flex;
   -ms-flex-wrap: wrap;
   -webkit-flex-wrap: wrap;
   flex-wrap: wrap;
-  border-bottom: none;
-  border: none;
   list-style: none;
   margin: 0;
   padding: 0;
@@ -63,8 +59,6 @@ footer {
 
 .tab-list li {
   display: inline-block;
-  -ms-flex: 1 1;
-  -webkit-flex: 1 1;
   flex: 1 1;
   margin: 0;
   text-align: center;
@@ -145,12 +139,8 @@ footer {
   }
 }
 
-
-
-
 /*
-  off site no-js menus
-*/
+  off site no-js menus  */
 
 .no-js .tab-list {
   left: 0;
@@ -177,15 +167,8 @@ footer {
   white-space: nowrap;
 }
 
-
-
-
-
-
 /*
-
   Tabs pinned to the side
-
 */
 
 @media screen and (min-width: 660px) {
@@ -198,14 +181,14 @@ footer {
     width: 300px;
   }
 
-  .tab-container--side-tabs > .tab-list:after {
+  .tab-container--side-tabs > .tab-list::after {
     background: #ccc;
+    bottom: 0;
     content: '';
     height: 100%;
     left: 300px;
     position: absolute;
     top: 0;
-    bottom: 0;
     width: 1px;
   }
 

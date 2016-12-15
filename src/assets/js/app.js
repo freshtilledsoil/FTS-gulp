@@ -14,14 +14,14 @@
 
 */
 
-import * as deviceCheck from './vendor/deviceCheck'
-import * as jumpLinkFix from './vendor/jump-link-fix'
-import * as a11yTabs from './vendor/tabs.js'
-import * as selectize from 'selectize'
+import * as deviceCheck from './vendor/deviceCheck';
+import * as jumpLinkFix from './vendor/jump-link-fix';
+import * as a11yTabs from './vendor/tabs.js';
+import * as selectize from 'selectize';
 
-const es6 = 'ES6 is working.'
-const isJqueryWorking = 'With global access to jQuery.'
+const es6 = 'ES6 is working.';
+const isJqueryWorking = 'With global access to jQuery.';
 
-console.log(es6)
-$('.js-yo').text(isJqueryWorking)
+console.log(es6);
+$('.js-yo').text(isJqueryWorking);
 $('.selectize').selectize();

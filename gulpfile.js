@@ -71,14 +71,13 @@ gulp.task('imagemin', function() {
 
 
 gulp.task('styles', function() {
-
   return gulp.src(sassFiles)
+    .pipe(plumber({ errorHandler: onError }))
     .pipe(stylelint({
       reporters: [
           { formatter: 'string', console: true }
       ]
     }))
-    .pipe(plumber({ errorHandler: onError }))
     .pipe(sass())
     .pipe(autoprefixer())
     .pipe(gulp.dest('./dist/assets/css/'))
@@ -148,7 +147,7 @@ gulp.task('watch', function() {
   gulp.watch(htmlFiles,  ['fileinclude']);
   gulp.watch(sassFiles,  ['styles']);
   gulp.watch(fontFiles,  ['fonts']);
-  gulp.watch(jsFiles,    ['es6', 'eslint']);
+  gulp.watch(jsFiles,    ['es6']);
   gulp.watch(imageFiles, ['imagemin']);
   gulp.watch(svgFiles,   ['svgmin']);
 });

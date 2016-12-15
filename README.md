@@ -69,11 +69,8 @@ Moves font files to `/dist` folder.
 
 [gulp-autorprefixer](https://www.npmjs.com/package/gulp-autoprefixer)
 
-### concat()
-[gulp-concat](https://www.npmjs.com/package/gulp-concat)
-
-### uglify()
-[gulp-uglify](https://www.npmjs.com/package/gulp-uglify)
+### es6()
+[webpack](https://webpack.github.io/)
 
 ### fileinclude()
 [gulp-file-include](https://www.npmjs.com/package/gulp-file-include)

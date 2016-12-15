@@ -126,7 +126,7 @@
     # require or disallow newlines around directives
     # http:#eslint.org/docs/rules/lines-around-directive
     "lines-around-directive": ["warn", {
-      before: "always",
+      before: "never",
       after: "always",
     }],
 
@@ -322,6 +322,9 @@
     # do not require jsdoc
     # http:#eslint.org/docs/rules/require-jsdoc
     "require-jsdoc": "off",
+
+    # disable rule for extra semis
+    "no-extra-semi": "off",
 
     # require or disallow use of semicolons instead of ASI
     "semi": ["warn", "always"],

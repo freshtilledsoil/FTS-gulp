@@ -1,67 +1,78 @@
 // GULP & PLUGINS
-var gulp          = require('gulp');
-var browserSync   = require('browser-sync');
-var plumber       = require('gulp-plumber');
-var notify        = require('gulp-notify');
-var sass          = require('gulp-sass');
-var autoprefixer  = require('gulp-autoprefixer');
-var rename        = require('gulp-rename');
-var cleanCSS      = require('gulp-clean-css');
-var concat        = require('gulp-concat');
-var uglify        = require('gulp-uglify');
-var webpackStream = require('webpack-stream');
-var imagemin      = require('gulp-imagemin');
-var svgmin        = require('gulp-svgmin');
-var del           = require('del');
-var path          = require('path');
-var webpack       = require('webpack');
+var autoprefixer = require('gulp-autoprefixer'),
+  browserSync   = require('browser-sync'),
+  cleanCSS      = require('gulp-clean-css'),
+  concat        = require('gulp-concat'),
+  del           = require('del'),
+  eslint        = require('gulp-eslint'),
+  fileinclude   = require('gulp-file-include'),
+  gulp          = require('gulp'),
+  imagemin      = require('gulp-imagemin'),
+  notify        = require('gulp-notify'),
+  plumber       = require('gulp-plumber'),
+  rename        = require('gulp-rename'),
+  sass          = require('gulp-sass'),
+  stylefmt      = require('gulp-stylefmt'),
+  stylelint     = require('gulp-stylelint'),
+  svgmin        = require('gulp-svgmin'),
+  path          = require('path'),
+  webpackStream = require('webpack-stream'),
+  webpack       = require('webpack');
 
 
 
 // FILE STRUCTURE
-var htmlFiles     = 'src/*.html';
-var jsFiles       = 'src/assets/js/**/*.js';
-var sassFiles     = 'src/assets/css/**/*.scss';
-var imageFiles    = 'src/assets/images/*.{png, jpg, gif}';
-var svgFiles      = 'src/assets/icons/*.svg';
+var htmlFiles   = 'src/**/*.html',
+  jsFiles       = 'src/assets/js/**/*.js',
+  sassFiles     = 'src/assets/css/**/*.scss',
+  imageFiles    = 'src/assets/images/**',
+  svgFiles      = 'src/assets/icons/*.svg',
+  fontFiles     = 'src/assets/fonts/**';
 
 
-var onError = function ( err ) {
+var onError = function(err) {
   notify.onError({
     title: 'Gulp',
-    subtitle: 'What did you do, Ray? aka: Failure...',
+    subtitle: 'What did you do, Ray?',
     message: 'Error: <%= error.message%>',
     sound: 'beep'
-  })( err );
+  })(err);
 };
 
 
-gulp.task('serve', function () {
+gulp.task('serve', function() {
   browserSync.init({
     server: {
-      baseDir: "./dist"
+      baseDir: './dist'
     },
     open: false
   });
 });
 
 
-gulp.task('html', function () {
+gulp.task('html', function() {
   return gulp.src(htmlFiles)
     .pipe(gulp.dest('./dist'))
     .pipe(browserSync.stream());
 });
 
 
-gulp.task('svgmin', function () {
+gulp.task('svgmin', function() {
   return gulp.src(svgFiles)
     .pipe(svgmin())
-    .pipe(gulp.dest('./dist/assets/images'))
+    .pipe(gulp.dest('./dist/assets/icons'))
     .pipe(browserSync.stream());
 });
 
 
-gulp.task('imagemin', function () {
+gulp.task('fonts', function() {
+  return gulp.src(fontFiles)
+    .pipe(gulp.dest('./dist/assets/fonts'))
+    .pipe(browserSync.stream());
+});
+
+
+gulp.task('imagemin', function() {
   return gulp.src(imageFiles)
     .pipe(imagemin())
     .pipe(gulp.dest('./dist/assets/images'))
@@ -69,18 +80,17 @@ gulp.task('imagemin', function () {
 });
 
 
-gulp.task('styles', function () {
+gulp.task('styles', function() {
   return gulp.src(sassFiles)
-    .pipe(plumber({errorHandler: onError}))
+    .pipe(plumber({ errorHandler: onError }))
     .pipe(sass())
     .pipe(autoprefixer())
     .pipe(gulp.dest('./dist/assets/css/'))
     .pipe(cleanCSS())
-    .pipe(rename({suffix: '.min'}))
+    .pipe(rename({ suffix: '.min' }))
     .pipe(gulp.dest('./dist/assets/css/'))
     .pipe(browserSync.stream());
 });
-
 
 
 gulp.task('es6', function () {
@@ -120,26 +130,58 @@ gulp.task('es6', function () {
   .pipe(browserSync.stream());
 });
 
+// https://github.com/coderhaoxin/gulp-file-include
+gulp.task('fileinclude', function() {
+  gulp.src([htmlFiles, '!src/g-include/**'])
+    .pipe(fileinclude({
+      prefix: '@@',
+      basepath: '@file'
+    }))
+    .pipe(gulp.dest('dist/'))
+    .pipe(browserSync.stream());
+});
 
-gulp.task('watch', function () {
-  gulp.watch(htmlFiles,  ['html']);
-  gulp.watch(sassFiles,  ['styles']);
-  gulp.watch(jsFiles,    ['es6']);
+
+gulp.task('watch', function() {
+  gulp.watch(htmlFiles,  ['fileinclude']);
+  gulp.watch(sassFiles,  ['styles', 'stylelint']);
+  gulp.watch(fontFiles,  ['fonts']);
+  gulp.watch(jsFiles,    ['es6', 'eslint']);
   gulp.watch(imageFiles, ['imagemin']);
   gulp.watch(svgFiles,   ['svgmin']);
 });
+
+
+gulp.task('stylelint', function() {
+  gulp.src(sassFiles)
+    .pipe(stylelint({
+      reporters: [
+          { formatter: 'string', console: true }
+      ]
+    }));
+});
+
+gulp.task('eslint', function() {
+  gulp.src(jsFiles)
+      .pipe(eslint())
+      .pipe(eslint.format());
+});
+
 
 gulp.task('clean', function() {
   return del('dist');
 });
 
+
 gulp.task('build', [
-  'html',
+  'fileinclude',
+  'fonts',
   'styles',
   'es6',
   'imagemin',
   'svgmin'
 ]);
+
 
 gulp.task('default', [
   'watch',

@@ -4,17 +4,14 @@
 
 ******************************************* */
 
-;(function deviceCheck ( ) {
-
-  var supportsTouch = 'ontouchstart' in window || navigator.msMaxTouchPoints;
-  var html = document.getElementsByTagName('HTML')[0];
+(function deviceCheck() {
+  var supportsTouch = 'ontouchstart' in window || navigator.msMaxTouchPoints,
+    html = document.getElementsByTagName('HTML')[0];
 
   // add appropriate classes for touch support
-  if ( supportsTouch ) {
+  if (supportsTouch) {
     html.classList.add('is-touch-device');
-  }
-  else {
+  } else {
     html.classList.add('not-touch-device');
   }
-
 })();

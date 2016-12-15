@@ -1,31 +1,26 @@
-<!doctype html>
-<html lang="en" class="no-js">
-<head>
-  <meta charset="UTF-8">
-  <title>FTS-gulp</title>
-
-  <link rel="dns-prefetch" href="//ajax.googleapis.com">
-  <link rel="dns-prefetch" href="//fonts.googleapis.com">
-
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <meta http-equiv="cleartype" content="on">
-
-  <!-- style -->
-  <link rel="stylesheet" href="assets/css/app.min.css">
-  <link href="http://fonts.googleapis.com/css?family=Open+Sans:400,600,600italic,400italic,700" rel="stylesheet">
-  <script>
-     // remove no-js and add 'js' & 'has-js' to the HTML
-     document.documentElement.className = document.documentElement.className.replace('no-js', " ");
-     document.documentElement.className += ' js has-js ';
-   </script>
-</head>
-<body>
+@@include('./g-include/app--wrap--start.html', {
+  "title": "index",
+  "bodyAttrs": "",
+  "pageClass": "page--index",
+  "path": "."
+})
 
   <header>
-	  <h1>FTS-gulp</h1>
+    <h1>
+      FTS-gulp
+    </h1>
   </header>
 
-  <main>
+  <main id="app" role="main" aria-label="content">
+
+    <h2>
+      Example starter for projects.
+    </h2>
+
+    <ul>
+      @@loop('./g-include/loop--cards.html', './g-include/loop--cards.json')
+    </ul>
+
     <p class="js-yo">YO</p>
 
     <div style="max-width: 250px; margin-bottom: 2em;">
@@ -66,10 +61,8 @@
 
   </main>
 
-  <footer>
-    <small>&copy; 2016</small>
-  </footer>
-
-<script async src="assets/js/app.min.js"></script>
-</body>
-</html>
+@@include('./g-include/app--wrap--end.html', {
+  "jsPreApp": "",
+  "jsPostApp": "",
+  "path": "."
+})

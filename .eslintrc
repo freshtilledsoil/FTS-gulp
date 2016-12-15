@@ -12,10 +12,11 @@
     "globals": {
       "$": true
     },
-    # mostly catches errors
+
     # http:#eslint.org/docs/user-guide/migrating-to-1.0.0#all-rules-off-by-default
     "extends": "eslint:recommended",
     "rules": {
+
     # errors are reserved for serious code issues (mostly in eslint:recommended);
     # warnings are for formatting and stylistic issues
 

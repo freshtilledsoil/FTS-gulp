@@ -41,8 +41,11 @@ way to make the suggested changes. If you're using the Atom browser, install the
 - linter-stylelint
 
 The two linter plugins will allow you to see in real time in your editor any linting warnings and errors.
-When you want to try an automated fix,open the command panel (shift cmd P) and then run:
+When you want to try an automated fix within atom, open the command panel (shift cmd P) and then run:
 `stylefmt: execute` or `Linter Eslint:Fix File`
+
+You could also install the command line utilities if you prefer, and run:
+`stylefmt src/assets/css/**/*.css` or `eslint --fix src/assets/js/**/*.js`
 
 For now, this solution is preferred instead of a gulp task so the developer still has final say over
 the file format.

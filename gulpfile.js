@@ -2,7 +2,6 @@
 var autoprefixer = require('gulp-autoprefixer'),
   browserSync   = require('browser-sync'),
   cleanCSS      = require('gulp-clean-css'),
-  concat        = require('gulp-concat'),
   del           = require('del'),
   eslint        = require('gulp-eslint'),
   fileinclude   = require('gulp-file-include'),

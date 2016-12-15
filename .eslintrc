@@ -1,14 +1,23 @@
 {
+    "parserOptions": {
+        "ecmaVersion": 6,
+        "sourceType": "module"
+        # "ecmaFeatures": {
+        #     "jsx": true
+        # }
+    },
     "env": {
         "browser": true,
-        "node": true,
-        "commonjs": true
     },
-    #mostly catches errors
+    "globals": {
+      "$": true
+    },
+    # mostly catches errors
+    # http:#eslint.org/docs/user-guide/migrating-to-1.0.0#all-rules-off-by-default
     "extends": "eslint:recommended",
     "rules": {
-    # most of the following is copied verbatim from https://github.com/airbnb/javascript/blob/master/packages/eslint-config-airbnb-base/rules/style.js
-    # except errors are converted to warnings
+    # errors are reserved for serious code issues (mostly in eslint:recommended);
+    # warnings are for formatting and stylistic issues
 
     # enforce spacing inside array brackets
     "array-bracket-spacing": ["warn", "never"],
@@ -18,7 +27,7 @@
     "block-spacing": ["warn", "always"],
 
     # enforce one true brace style
-    "brace-style": ["warn", "1tbs", { allowSingleLine: true }],
+    "brace-style": ["warn", "stroustrup", { allowSingleLine: false }],
 
     # require camel case names
     camelcase: ["warn", { properties: "never" }],
@@ -48,12 +57,11 @@
     "computed-property-spacing": ["warn", "never"],
 
     # enforces consistent naming when capturing the current execution context
-    "consistent-this": "off",
+    "consistent-this": ["off"],
 
     # enforce newline at the end of file, with no multiple empty lines
     "eol-last": ["warn", "always"],
 
-    # enforce spacing between functions and their invocations
     # http:#eslint.org/docs/rules/func-call-spacing
     "func-call-spacing": ["warn", "never"],
 
@@ -64,14 +72,7 @@
       includeCommonJSModuleExports: false
     }],
 
-    # require function expressions to have a name
-    # http:#eslint.org/docs/rules/func-names
-    "func-names": "warn",
-
-    # enforces use of function declarations or expressions
-    # http:#eslint.org/docs/rules/func-style
-    # TODO: enable
-    "func-style": ["off", "expression"],
+   "func-style": ["off", "declaration"],
 
     # Blacklist certain identifiers to prevent them being used
     # http:#eslint.org/docs/rules/id-blacklist
@@ -84,9 +85,8 @@
     # require identifiers to match the provided regular expression
     "id-match": "off",
 
-    # this option sets a specific tab width for your code
     # http:#eslint.org/docs/rules/indent
-    "indent": ["warn", 2],
+    "indent": ["warn", 2, { "SwitchCase": 1 }],
 
     # specify whether double or single quotes should be used in JSX attributes
     # http:#eslint.org/docs/rules/jsx-quotes
@@ -120,7 +120,7 @@
     "linebreak-style": ["warn", "unix"],
 
     # enforces empty lines around comments
-    "lines-around-comment": "off",
+   "lines-around-comment": "warn",
 
     # require or disallow newlines around directives
     # http:#eslint.org/docs/rules/lines-around-directive
@@ -291,7 +291,7 @@
     }],
 
     # allow just one var statement per function
-    "one-var": ["warn", "always"],
+    "one-var": ["warn", "never"],
 
     # require a newline around variable declaration
     # http:#eslint.org/docs/rules/one-var-declaration-per-line
@@ -305,11 +305,15 @@
     "operator-linebreak": "off",
 
     # enforce padding within blocks
-    "padded-blocks": ["warn", "never"],
+    # "padded-blocks": ["warn", "always"],
+    "padded-blocks": "off",
 
     # require quotes around object literal property names
-    # http:#eslint.org/docs/rules/quote-props.html
-    "quote-props": ["warn", "as-needed", { keywords: false, unnecessary: true, numbers: false }],
+    "quote-props": ["warn", "consistent", {
+        keywords: true,
+        unnecessary: true,
+        numbers: false
+      }],
 
     # specify whether double or single quotes should be used
     "quotes" : ["warn", "single", { avoidEscape: true }],
@@ -333,16 +337,11 @@
     # require or disallow space before blocks
     "space-before-blocks": "warn",
 
-    # require or disallow space before function opening parenthesis
     # http:#eslint.org/docs/rules/space-before-function-paren
-    "space-before-function-paren": ["warn", {
-      anonymous: "never",
-      named: "never",
-      asyncArrow: "always"
-    }],
+    "space-before-function-paren": ["warn", "always"],
 
     # require or disallow spaces inside parentheses
-    "space-in-parens": ["warn", "never"],
+    "space-in-parens": "off",
 
     # require spaces around operators
     "space-infix-ops": "warn",
@@ -370,11 +369,5 @@
       }
     }],
 
-    # require or disallow the Unicode Byte Order Mark
-    # http:#eslint.org/docs/rules/unicode-bom
-    "unicode-bom": ["warn", "never"],
-
-    # require regex literals to be wrapped in parentheses
-    "wrap-regex": "off"
   }
 }

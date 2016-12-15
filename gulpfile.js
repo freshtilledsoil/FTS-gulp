@@ -1,9 +1,9 @@
 // GULP & PLUGINS
 var autoprefixer = require('gulp-autoprefixer'),
   browserSync   = require('browser-sync'),
+  beautify      = require('gulp-jsbeautifier'),
   cleanCSS      = require('gulp-clean-css'),
   del           = require('del'),
-  eslint        = require('gulp-eslint'),
   fileinclude   = require('gulp-file-include'),
   gulp          = require('gulp'),
   imagemin      = require('gulp-imagemin'),
@@ -11,13 +11,11 @@ var autoprefixer = require('gulp-autoprefixer'),
   plumber       = require('gulp-plumber'),
   rename        = require('gulp-rename'),
   sass          = require('gulp-sass'),
-  stylefmt      = require('gulp-stylefmt'),
   stylelint     = require('gulp-stylelint'),
   svgmin        = require('gulp-svgmin'),
   path          = require('path'),
   webpackStream = require('webpack-stream'),
   webpack       = require('webpack');
-
 
 
 // FILE STRUCTURE
@@ -49,13 +47,6 @@ gulp.task('serve', function() {
 });
 
 
-gulp.task('html', function() {
-  return gulp.src(htmlFiles)
-    .pipe(gulp.dest('./dist'))
-    .pipe(browserSync.stream());
-});
-
-
 gulp.task('svgmin', function() {
   return gulp.src(svgFiles)
     .pipe(svgmin())
@@ -80,7 +71,13 @@ gulp.task('imagemin', function() {
 
 
 gulp.task('styles', function() {
+
   return gulp.src(sassFiles)
+    .pipe(stylelint({
+      reporters: [
+          { formatter: 'string', console: true }
+      ]
+    }))
     .pipe(plumber({ errorHandler: onError }))
     .pipe(sass())
     .pipe(autoprefixer())
@@ -100,15 +97,20 @@ gulp.task('es6', function () {
     'app': './src/assets/js/app.js',
     'app.min': './src/assets/js/app.js',
     },
-    // devtool: "source-map",
+    // devtool: 'source-map',
     output: { filename: '[name].js' },
     module: {
       loaders: [
         {
           test: /\.js$/,
           loader: 'babel-loader?presets[]=es2015',
-          include: [ path.resolve(__dirname, "src") ],
+          include: [ path.resolve(__dirname, 'src') ],
           exclude: /node-modules/
+        },
+        {
+          test: /\.js$/,
+          loader: 'eslint-loader',
+          exclude: /node_modules/
         }
       ],
     },
@@ -136,6 +138,7 @@ gulp.task('fileinclude', function() {
       prefix: '@@',
       basepath: '@file'
     }))
+    .pipe(beautify())
     .pipe(gulp.dest('dist/'))
     .pipe(browserSync.stream());
 });
@@ -143,7 +146,7 @@ gulp.task('fileinclude', function() {
 
 gulp.task('watch', function() {
   gulp.watch(htmlFiles,  ['fileinclude']);
-  gulp.watch(sassFiles,  ['styles', 'stylelint']);
+  gulp.watch(sassFiles,  ['styles']);
   gulp.watch(fontFiles,  ['fonts']);
   gulp.watch(jsFiles,    ['es6', 'eslint']);
   gulp.watch(imageFiles, ['imagemin']);
@@ -151,24 +154,8 @@ gulp.task('watch', function() {
 });
 
 
-gulp.task('stylelint', function() {
-  gulp.src(sassFiles)
-    .pipe(stylelint({
-      reporters: [
-          { formatter: 'string', console: true }
-      ]
-    }));
-});
-
-gulp.task('eslint', function() {
-  gulp.src(jsFiles)
-      .pipe(eslint())
-      .pipe(eslint.format());
-});
-
-
 gulp.task('clean', function() {
-  return del('dist');
+  return del.sync('dist');
 });
 
 
@@ -183,6 +170,7 @@ gulp.task('build', [
 
 
 gulp.task('default', [
+  'clean',
   'watch',
   'serve',
   'build'

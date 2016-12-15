@@ -13,6 +13,11 @@
   <!-- style -->
   <link rel="stylesheet" href="assets/css/app.min.css">
   <link href="http://fonts.googleapis.com/css?family=Open+Sans:400,600,600italic,400italic,700" rel="stylesheet">
+  <script>
+     // remove no-js and add 'js' & 'has-js' to the HTML
+     document.documentElement.className = document.documentElement.className.replace('no-js', " ");
+     document.documentElement.className += ' js has-js ';
+   </script>
 </head>
 <body>
 
@@ -21,15 +26,50 @@
   </header>
 
   <main>
-    <div id="gifs">
-	     <p>gifs go here</p>
-     </div>
+    <p class="js-yo">YO</p>
+
+    <div style="max-width: 250px; margin-bottom: 2em;">
+      <label>
+        Label for select field
+        <select class="selectize">
+          <option>Option 1</option>
+          <option>Option 2</option>
+          <option>Option 3</option>
+        </select>
+      </label>
+    </div>
+
+    <div class="tab-container" data-action="a11y-tabs" id="unique_id">
+
+      <div class="tab-panel-container js-tabs-panel-container">
+        <section class="tab-panel js-tabs__panel" data-tab-label="Yo">
+          <h2>Heading of Panel 1</h2>
+          <p>
+            ...
+          </p>
+        </section> <!-- /.tab-panel -->
+        <section class="tab-panel js-tabs__panel" data-tab-label="tab 2">
+          <h2>Heading of Panel 2</h2>
+          <p>
+            ...
+          </p>
+        </section> <!-- /.tab-panel -->
+        <section class="tab-panel js-tabs__panel" data-tab-label="tab 3">
+          <h2>Heading of Panel 3</h2>
+          <p>
+            ...
+          </p>
+        </section> <!-- /.tab-panel -->
+      </div> <!-- /.tab-panel-container -->
+
+    </div> <!-- /.tab-container -->
+
   </main>
 
   <footer>
     <small>&copy; 2016</small>
   </footer>
 
-<script async src="assets/js/bundle.min.js"></script>
+<script async src="assets/js/app.min.js"></script>
 </body>
 </html>

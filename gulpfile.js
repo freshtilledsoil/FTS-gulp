@@ -9,11 +9,12 @@ var rename        = require('gulp-rename');
 var cleanCSS      = require('gulp-clean-css');
 var concat        = require('gulp-concat');
 var uglify        = require('gulp-uglify');
-var webpack       = require('webpack-stream');
+var webpackStream = require('webpack-stream');
 var imagemin      = require('gulp-imagemin');
 var svgmin        = require('gulp-svgmin');
 var del           = require('del');
 var path          = require('path');
+var webpack       = require('webpack');
 
 
 
@@ -73,6 +74,7 @@ gulp.task('styles', function () {
     .pipe(plumber({errorHandler: onError}))
     .pipe(sass())
     .pipe(autoprefixer())
+    .pipe(gulp.dest('./dist/assets/css/'))
     .pipe(cleanCSS())
     .pipe(rename({suffix: '.min'}))
     .pipe(gulp.dest('./dist/assets/css/'))
@@ -80,12 +82,17 @@ gulp.task('styles', function () {
 });
 
 
+
 gulp.task('es6', function () {
   return gulp.src('./src/assets/js/app.js')
-  .pipe(webpack({
-    output: {
-      filename: 'bundle.min.js'
+  .pipe(plumber({errorHandler: onError}))
+  .pipe(webpackStream({
+    entry: {
+    'app': './src/assets/js/app.js',
+    'app.min': './src/assets/js/app.js',
     },
+    // devtool: "source-map",
+    output: { filename: '[name].js' },
     module: {
       loaders: [
         {
@@ -94,10 +101,21 @@ gulp.task('es6', function () {
           include: [ path.resolve(__dirname, "src") ],
           exclude: /node-modules/
         }
-      ]
+      ],
     },
+    plugins: [
+      new webpack.optimize.UglifyJsPlugin({
+        include: /\.min\.js$/,
+        minimize: true
+      }),
+      new webpack.ProvidePlugin({
+        jQuery: 'jquery',
+        $: 'jquery',
+        jquery: 'jquery',
+
+      }),
+    ]
   }))
-  .pipe(uglify())
   .pipe(gulp.dest('./dist/assets/js/'))
   .pipe(browserSync.stream());
 });

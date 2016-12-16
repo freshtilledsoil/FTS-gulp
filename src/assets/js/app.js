@@ -14,9 +14,9 @@
 
 */
 
-import * as deviceCheck from './vendor/deviceCheck';
-import * as jumpLinkFix from './vendor/jump-link-fix';
-import * as a11yTabs from './vendor/tabs.js';
+import * as deviceCheck from './scripts/app_helpers/deviceCheck';
+import * as jumpLinkFix from './scripts/app_helpers/jump-link-fix';
+import * as a11yTabs from './scripts/tabs.js';
 import * as selectize from 'selectize';
 
 const es6 = 'ES6 is working.';

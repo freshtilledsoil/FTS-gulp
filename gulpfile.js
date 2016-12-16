@@ -27,7 +27,7 @@ var htmlFiles   = 'src/**/*.html',
   fontFiles     = 'src/assets/fonts/**';
 
 
-var onError = function(err) {
+var onError = function ( err ) {
   notify.onError({
     title: 'Gulp',
     subtitle: 'What did you do, Ray?',
@@ -37,7 +37,7 @@ var onError = function(err) {
 };
 
 
-gulp.task('serve', function() {
+gulp.task('serve', function () {
   browserSync.init({
     server: {
       baseDir: './dist'
@@ -47,7 +47,7 @@ gulp.task('serve', function() {
 });
 
 
-gulp.task('svgmin', function() {
+gulp.task('svgmin', function () {
   return gulp.src(svgFiles)
     .pipe(svgmin())
     .pipe(gulp.dest('./dist/assets/icons'))
@@ -55,14 +55,14 @@ gulp.task('svgmin', function() {
 });
 
 
-gulp.task('fonts', function() {
+gulp.task('fonts', function () {
   return gulp.src(fontFiles)
     .pipe(gulp.dest('./dist/assets/fonts'))
     .pipe(browserSync.stream());
 });
 
 
-gulp.task('imagemin', function() {
+gulp.task('imagemin', function () {
   return gulp.src(imageFiles)
     .pipe(imagemin())
     .pipe(gulp.dest('./dist/assets/images'))
@@ -70,7 +70,7 @@ gulp.task('imagemin', function() {
 });
 
 
-gulp.task('styles', function() {
+gulp.task('styles', function () {
   return gulp.src(sassFiles)
     .pipe(plumber({ errorHandler: onError }))
     .pipe(stylelint({
@@ -131,7 +131,7 @@ gulp.task('es6', function () {
 });
 
 // https://github.com/coderhaoxin/gulp-file-include
-gulp.task('fileinclude', function() {
+gulp.task('fileinclude', function () {
   gulp.src([htmlFiles, '!src/g-include/**'])
     .pipe(fileinclude({
       prefix: '@@',
@@ -143,7 +143,7 @@ gulp.task('fileinclude', function() {
 });
 
 
-gulp.task('watch', function() {
+gulp.task('watch', function () {
   gulp.watch(htmlFiles,  ['fileinclude']);
   gulp.watch(sassFiles,  ['styles']);
   gulp.watch(fontFiles,  ['fonts']);
@@ -153,7 +153,7 @@ gulp.task('watch', function() {
 });
 
 
-gulp.task('clean', function() {
+gulp.task('clean', function () {
   return del.sync('dist');
 });
 

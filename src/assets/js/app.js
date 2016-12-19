@@ -3,20 +3,27 @@
 
   if ( importing via node_modules ) {
     import thing from 'thing'
-  } else if ( importing es5 ) {
+  }
+  else if ( importing es5 ) {
     import * as thing from 'thing'
   }
 
   The webpack.ProvidePlugin (gulpfile.js)
-  allows us to declare ['jquery', '$']
-  as global variables. AKA, jQuery is
-  built in.
+  allows us to declare ['jquery', '$'] as global variables.
+  Essentially, jQuery is built in.
 
 */
 
+// Common helper scripts for projects
 import * as deviceCheck from './scripts/app_helpers/deviceCheck';
 import * as jumpLinkFix from './scripts/app_helpers/jump-link-fix';
-import * as a11yTabs from './scripts/tabs.js';
+
+
+//
+// From here down are test scripts for testing this task runner.
+// Delete everything from here down to customize your own project.
+//
+import * as a11yTabs from './scripts/a11y.tabs.js';
 import * as selectize from 'selectize';
 
 const es6 = 'ES6 is working.';

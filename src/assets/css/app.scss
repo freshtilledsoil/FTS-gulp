@@ -3,7 +3,7 @@
 body {
   background: #fff;
   color: #000;
-  font-family: 'open sans';
+  font-family: "open sans";
   transition: ease .2s all;
 }
 
@@ -11,7 +11,7 @@ body {
 ---------------------------------------------- */
 
 h1 {
-  font-family: 'open sans', 'serif';
+  font-family: "open sans", "serif";
 }
 
 /* Lists
@@ -28,5 +28,5 @@ footer {
   margin-top: 1em;
 }
 
-@import 'stylesheets/vendor/tabs.scss';
-@import '../../../node_modules/selectize/dist/css/selectize.css';
+@import "stylesheets/vendor/tabs.scss";
+@import "../../../node_modules/selectize/dist/css/selectize.css";

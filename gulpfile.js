@@ -13,10 +13,7 @@ var autoprefixer = require('gulp-autoprefixer'),
   sass          = require('gulp-sass'),
   stylelint     = require('gulp-stylelint'),
   svgmin        = require('gulp-svgmin'),
-  path          = require('path'),
-  webpackStream = require('webpack-stream'),
-  webpack       = require('webpack');
-
+  webpackStream = require('webpack-stream');
 
 // FILE STRUCTURE
 var htmlFiles   = 'src/**/*.html',
@@ -32,7 +29,6 @@ var onError = function ( err ) {
     title: 'Gulp',
     subtitle: 'What did you do, Ray?',
     message: 'Error: <%= error.message%>',
-    sound: 'beep'
   })(err);
 };
 
@@ -91,41 +87,7 @@ gulp.task('styles', function () {
 gulp.task('es6', function () {
   return gulp.src('./src/assets/js/app.js')
   .pipe(plumber({errorHandler: onError}))
-  .pipe(webpackStream({
-    entry: {
-    'app': './src/assets/js/app.js',
-    'app.min': './src/assets/js/app.js',
-    },
-    // devtool: 'source-map',
-    output: { filename: '[name].js' },
-    module: {
-      loaders: [
-        {
-          test: /\.js$/,
-          loader: 'babel-loader?presets[]=es2015',
-          include: [ path.resolve(__dirname, 'src') ],
-          exclude: /node-modules/
-        },
-        {
-          test: /\.js$/,
-          loader: 'eslint-loader',
-          exclude: /node_modules/
-        }
-      ],
-    },
-    plugins: [
-      new webpack.optimize.UglifyJsPlugin({
-        include: /\.min\.js$/,
-        minimize: true
-      }),
-      new webpack.ProvidePlugin({
-        jQuery: 'jquery',
-        $: 'jquery',
-        jquery: 'jquery',
-
-      }),
-    ]
-  }))
+  .pipe(webpackStream(require('./webpack.config.js')))
   .pipe(gulp.dest('./dist/assets/js/'))
   .pipe(browserSync.stream());
 });
@@ -157,8 +119,8 @@ gulp.task('clean', function () {
   return del.sync('dist');
 });
 
-
 gulp.task('build', [
+  'clean',
   'fileinclude',
   'fonts',
   'styles',
@@ -169,7 +131,6 @@ gulp.task('build', [
 
 
 gulp.task('default', [
-  'clean',
   'watch',
   'serve',
   'build'

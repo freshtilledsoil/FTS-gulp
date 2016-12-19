@@ -195,13 +195,15 @@
     # disallow use of the Array constructor
     "no-array-constructor": "warn",
 
-    # disallow use of bitwise operators
     # http:#eslint.org/docs/rules/no-bitwise
     "no-bitwise": "warn",
 
-    # disallow use of the continue statement
+    "no-console": "warn",
+
     # http:#eslint.org/docs/rules/no-continue
     "no-continue": "warn",
+
+    "no-debugger": "warn",
 
     # disallow comments inline after code
     "no-inline-comments": "off",

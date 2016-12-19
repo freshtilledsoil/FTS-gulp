@@ -15,10 +15,10 @@ npm install
 
 ```
 // Run build and watch for changes
-gulp
+gulp or npm start
 
 // Build dist folder
-gulp build
+npm run dev
 
 // Delete dist folder
 gulp clean

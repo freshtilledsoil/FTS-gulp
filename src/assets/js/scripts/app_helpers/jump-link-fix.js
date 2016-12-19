@@ -6,12 +6,16 @@
 
 ******************************************* */
 
-window.addEventListener('hashchange', function() {
+window.addEventListener('hashchange', function () {
+
   var el = document.getElementById(location.hash.substring(1));
-  if (el) {
-    if (!/^(?:a|select|input|button|textarea)$/i.test(el.tagName)) {
+
+  if ( el ) {
+
+    if ( !/^(?:a|select|input|button|textarea)$/i.test(el.tagName) ) {
       el.tabIndex = -1;
     }
+
     el.focus();
   }
 }, false);

@@ -1,0 +1,2 @@
+# ignore vendor files
+src/assets/css/stylesheets/vendor/**

@@ -1,2 +1,3 @@
-src/assets/js/vendor.concat.js
-src/assets/js/vendor/third_party_scripts/*.js
+src/assets/js/app.js
+src/assets/js/scripts.concat.js
+src/assets/js/scripts/third_party_scripts/*.js

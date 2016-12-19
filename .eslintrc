@@ -229,7 +229,9 @@
     "no-mixed-spaces-and-tabs": "warn",
 
     # disallow multiple empty lines and only one newline at the end
-    "no-multiple-empty-lines": ["warn", { max: 2, maxEOF: 1 }],
+    "no-multiple-empty-lines": ["warn", {
+        max: 4, maxEOF: 1
+    }],
 
     # disallow negated conditions
     # http:#eslint.org/docs/rules/no-negated-condition
@@ -339,6 +341,12 @@
 
     # sort variables within the same declaration block
     "sort-vars": "off",
+
+    # Unused Variables
+    "no-unused-vars": "warn",
+
+    # No Undefined
+    "no-undef": "warn",
 
     # require or disallow space before blocks
     "space-before-blocks": "warn",

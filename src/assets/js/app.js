@@ -8,7 +8,7 @@
     import * as thing from 'thing'
   }
 
-  The webpack.ProvidePlugin (gulpfile.js)
+  The webpack.ProvidePlugin (webpack.config.js)
   allows us to declare ['jquery', '$'] as global variables.
   Essentially, jQuery is built in.
 

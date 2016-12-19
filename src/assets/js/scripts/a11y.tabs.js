@@ -1,5 +1,5 @@
-(function ( w, doc ) {
-  alert('asdfdasaf');
+// (function ( w, doc ) {
+
   'use strict';
 
   var a11yTabs = {};
@@ -404,7 +404,7 @@
 
   $(tabWidget).a11yTabs();
 
-})( this, this.document );
+// })( this, this.document );
 
 
 

@@ -1,21 +1,21 @@
 /* Base
-----------------------------------------------*/
+---------------------------------------------- */
 body {
-  background: white;
-  color: black;
-  font-family: 'open sans';
-  transition: ease 0.2s all;
+  background: #fff;
+  color: #000;
+  font-family: "open sans";
+  transition: ease .2s all;
 }
 
 /* Typography
-----------------------------------------------*/
+---------------------------------------------- */
 
 h1 {
-  font-family: 'open sans', 'serif';
+  font-family: "open sans", "serif";
 }
 
 /* Lists
-----------------------------------------------*/
+---------------------------------------------- */
 .list-reset {
   list-style-type: none;
   margin: 0;
@@ -23,7 +23,10 @@ h1 {
 }
 
 /* Footer
-----------------------------------------------*/
+---------------------------------------------- */
 footer {
   margin-top: 1em;
 }
+
+@import "stylesheets/vendor/tabs.scss";
+@import "../../../node_modules/selectize/dist/css/selectize.css";

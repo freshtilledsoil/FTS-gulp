@@ -5,26 +5,66 @@
   "path": "."
 })
 
-      <header>
-        <h1>
-          FTS-gulp
-        </h1>
-      </header>
+  <header>
+    <h1>
+      FTS-gulp
+    </h1>
+  </header>
 
-      <main id="app" role="main" aria-label="content">
+  <main id="app" role="main" aria-label="content">
 
-        <h2>
-          Example starter for projects.
-        </h2>
+    <h2>
+      Example starter for projects.
+    </h2>
 
-        <ul>
-          @@loop('./g-include/loop--cards.html', './g-include/loop--cards.json')
-        </ul>
+    <ul>
+      @@loop('./g-include/loop--cards.html', './g-include/loop--cards.json')
+    </ul>
 
-      </main>
+    <p class="js-yo">
+      JS yo!
+    </p>
+
+    <div style="max-width: 250px; margin-bottom: 2em;">
+      <label>
+        Label for select field
+        <select class="selectize">
+          <option>Option 1</option>
+          <option>Option 2</option>
+          <option>Option 3</option>
+        </select>
+      </label>
+    </div>
+
+    <div class="tab-container" data-action="a11y-tabs" id="unique_id">
+
+      <div class="tab-panel-container js-tabs-panel-container">
+        <section class="tab-panel js-tabs__panel" data-tab-label="Yo">
+          <h2>Heading of Panel 1</h2>
+          <p>
+            ...
+          </p>
+        </section> <!-- /.tab-panel -->
+        <section class="tab-panel js-tabs__panel" data-tab-label="tab 2">
+          <h2>Heading of Panel 2</h2>
+          <p>
+            ...
+          </p>
+        </section> <!-- /.tab-panel -->
+        <section class="tab-panel js-tabs__panel" data-tab-label="tab 3">
+          <h2>Heading of Panel 3</h2>
+          <p>
+            ...
+          </p>
+        </section> <!-- /.tab-panel -->
+      </div> <!-- /.tab-panel-container -->
+
+    </div> <!-- /.tab-container -->
+
+  </main>
 
 @@include('./g-include/app--wrap--end.html', {
-  "jsPreApp": "<script src='https://ajax.googleapis.com/ajax/libs/jquery/3.1.1/jquery.min.js'></script>",
+  "jsPreApp": "",
   "jsPostApp": "",
   "path": "."
 })

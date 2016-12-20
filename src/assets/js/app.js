@@ -1,35 +1,34 @@
-;(function ($, w, doc) {
+/*
+  Import project dependencies
 
-  // Enable strict mode
-  "use strict";
+  if ( importing via node_modules ) {
+    import thing from 'thing'
+  }
+  else if ( importing es5 ) {
+    import * as thing from 'thing'
+  }
 
-  // Local object for method references
-  var App = {};
+  The webpack.ProvidePlugin (webpack.config.js)
+  allows us to declare ['jquery', '$'] as global variables.
+  Essentially, jQuery is built in.
 
-  // Namespace
-  App.ns = "Application";
+*/
 
-  // Start defining methods here
-  App.init = function () {
-
-    // initializations go here
-
-  }; // End App.init()
-
-  // Start the application
-  App.init();
-
-} )( jQuery, this, this.document );
+// Common helper scripts for projects
+import * as deviceCheck from './scripts/app_helpers/deviceCheck';
+import * as jumpLinkFix from './scripts/app_helpers/jump-link-fix';
 
 
-
-
-// below is an example of what app.js would look like if it
-// were using es6
 //
-// import $ from 'jquery';
-// import Example from './vendor/Example';
+// From here down are test scripts for testing this task runner.
+// Delete everything from here down to customize your own project.
+//
+import * as a11yTabs from './scripts/a11y.tabs.js';
+import * as selectize from 'selectize';
 
+const es6 = 'ES6 is working.';
+const isJqueryWorking = 'With global access to jQuery.';
 
-// var x = new Example();
-// x.speak();
+console.log(es6);
+$('.js-yo').text(isJqueryWorking);
+$('.selectize').selectize();

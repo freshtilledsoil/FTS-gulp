@@ -4,8 +4,7 @@
 
 ******************************************* */
 
-;(function deviceCheck ( ) {
-
+(function deviceCheck () {
   var supportsTouch = 'ontouchstart' in window || navigator.msMaxTouchPoints;
   var html = document.getElementsByTagName('HTML')[0];
 
@@ -16,5 +15,4 @@
   else {
     html.classList.add('not-touch-device');
   }
-
 })();

@@ -1,32 +1,27 @@
 // GULP & PLUGINS
-var autoprefixer  = require('gulp-autoprefixer');
-var babelify      = require('babelify');
-var browserify    = require('browserify');
-var browserSync   = require('browser-sync');
-var buffer        = require('vinyl-buffer');
-var cleanCSS      = require('gulp-clean-css');
-var concat        = require('gulp-concat');
-var del           = require('del');
-var fileinclude   = require('gulp-file-include');
-var gulp          = require('gulp');
-var imagemin      = require('gulp-imagemin');
-var notify        = require('gulp-notify');
-var plumber       = require('gulp-plumber');
-var rename        = require('gulp-rename');
-var sass          = require('gulp-sass');
-var source        = require('vinyl-source-stream');
-var sourcemaps    = require('gulp-sourcemaps');
-var svgmin        = require('gulp-svgmin');
-var uglify        = require('gulp-uglify');
-
+var autoprefixer = require('gulp-autoprefixer'),
+  browserSync   = require('browser-sync'),
+  beautify      = require('gulp-jsbeautifier'),
+  cleanCSS      = require('gulp-clean-css'),
+  del           = require('del'),
+  fileinclude   = require('gulp-file-include'),
+  gulp          = require('gulp'),
+  imagemin      = require('gulp-imagemin'),
+  notify        = require('gulp-notify'),
+  plumber       = require('gulp-plumber'),
+  rename        = require('gulp-rename'),
+  sass          = require('gulp-sass'),
+  stylelint     = require('gulp-stylelint'),
+  svgmin        = require('gulp-svgmin'),
+  webpackStream = require('webpack-stream');
 
 // FILE STRUCTURE
-var htmlFiles     = 'src/**/*.html';
-var jsFiles       = 'src/assets/js/**/*.js';
-var sassFiles     = 'src/assets/css/**/*.scss';
-var imageFiles    = 'src/assets/images/**';
-var svgFiles      = 'src/assets/icons/*.svg';
-var fontFiles     = 'src/assets/fonts/**';
+var htmlFiles   = 'src/**/*.html',
+  jsFiles       = 'src/assets/js/**/*.js',
+  sassFiles     = 'src/assets/css/**/*.scss',
+  imageFiles    = 'src/assets/images/**',
+  svgFiles      = 'src/assets/icons/*.svg',
+  fontFiles     = 'src/assets/fonts/**';
 
 
 var onError = function ( err ) {
@@ -34,25 +29,17 @@ var onError = function ( err ) {
     title: 'Gulp',
     subtitle: 'What did you do, Ray?',
     message: 'Error: <%= error.message%>',
-    sound: 'beep'
-  })( err );
+  })(err);
 };
 
 
 gulp.task('serve', function () {
   browserSync.init({
     server: {
-      baseDir: "./dist"
+      baseDir: './dist'
     },
     open: false
   });
-});
-
-
-gulp.task('html', function () {
-  return gulp.src(htmlFiles)
-    .pipe(gulp.dest('./dist'))
-    .pipe(browserSync.stream());
 });
 
 
@@ -81,60 +68,38 @@ gulp.task('imagemin', function () {
 
 gulp.task('styles', function () {
   return gulp.src(sassFiles)
-    .pipe(plumber({errorHandler: onError}))
+    .pipe(plumber({ errorHandler: onError }))
+    .pipe(stylelint({
+      reporters: [
+          { formatter: 'string', console: true }
+      ]
+    }))
     .pipe(sass())
     .pipe(autoprefixer())
     .pipe(gulp.dest('./dist/assets/css/'))
     .pipe(cleanCSS())
-    .pipe(rename({suffix: '.min'}))
+    .pipe(rename({ suffix: '.min' }))
     .pipe(gulp.dest('./dist/assets/css/'))
     .pipe(browserSync.stream());
 });
 
 
-gulp.task('concat', function () {
-  return gulp.src('./src/assets/js/vendor/**')
-    .pipe(concat('vendor.concat.js'))
-    .pipe(gulp.dest('./src/assets/js/'))
+gulp.task('es6', function () {
+  return gulp.src('./src/assets/js/app.js')
+  .pipe(plumber({errorHandler: onError}))
+  .pipe(webpackStream(require('./webpack.config.js')))
+  .pipe(gulp.dest('./dist/assets/js/'))
+  .pipe(browserSync.stream());
 });
-
-
-gulp.task('uglify', function () {
-  return gulp.src('./src/assets/js/*.js')
-    .pipe(gulp.dest('./dist/assets/js'))
-    .pipe(rename({suffix: '.min'}))
-    .pipe(uglify())
-    .pipe(gulp.dest('./dist/assets/js'))
-    .pipe(browserSync.stream());
-});
-
-
-// gulp.task('es6', function () {
-//   return browserify('./src/assets/js/app.js')
-//     .transform(babelify.configure({ presets: ['es2015'] }))
-//     .bundle()
-//     .on('error', function ( error ) {
-//       onError(error);
-//       this.emit('end');
-//     })
-//     .pipe(source('app.js'))
-//     .pipe(buffer())
-//     .pipe(sourcemaps.init({ loadMaps: true }))
-//     .pipe(uglify())
-//     .pipe(sourcemaps.write('./'))
-//     .pipe(rename({suffix: '.min'}))
-//     .pipe(gulp.dest('./dist/assets/js'))
-//     .pipe(browserSync.stream());
-// });
-
 
 // https://github.com/coderhaoxin/gulp-file-include
-gulp.task('fileinclude', function() {
+gulp.task('fileinclude', function () {
   gulp.src([htmlFiles, '!src/g-include/**'])
     .pipe(fileinclude({
       prefix: '@@',
       basepath: '@file'
     }))
+    .pipe(beautify())
     .pipe(gulp.dest('dist/'))
     .pipe(browserSync.stream());
 });
@@ -144,22 +109,22 @@ gulp.task('watch', function () {
   gulp.watch(htmlFiles,  ['fileinclude']);
   gulp.watch(sassFiles,  ['styles']);
   gulp.watch(fontFiles,  ['fonts']);
-  gulp.watch(jsFiles,    ['concat', 'uglify']);
+  gulp.watch(jsFiles,    ['es6']);
   gulp.watch(imageFiles, ['imagemin']);
   gulp.watch(svgFiles,   ['svgmin']);
 });
 
 
-gulp.task('clean', function() {
-  return del('dist');
+gulp.task('clean', function () {
+  return del.sync('dist');
 });
 
-
 gulp.task('build', [
+  'clean',
   'fileinclude',
   'fonts',
   'styles',
-  'concat',
+  'es6',
   'imagemin',
   'svgmin'
 ]);

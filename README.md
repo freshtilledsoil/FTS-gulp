@@ -24,13 +24,13 @@ npm run dist
 ## Project Structure
 
 All development is limited to the `/src` folder.
-Running the `gulp` command will compile and build a `/dist` folder which
+Running `npm start` will run a gulp task to compile and build a `/dist` folder which
 is referenced via the built in server at [localhost:3000](http://localhost:3000).
 With gulp running, saving a file within the `/src` folder will run the
 associated gulp task and update the `/dist` folder accordingly.
 
 ## Developer
-FTS uses linter configs to ensure consistent code. The `gulp` task will watch JS and SCSS files and run
+FTS uses linter configs to ensure consistent code. The `npm start` task will watch JS and SCSS files and run
 a linting report every time they are changed. While this is helpful, sometimes it's nice to have an automated
 way to make the suggested changes. If you're using the Atom browser, install the following plugins:
 - linter-eslint

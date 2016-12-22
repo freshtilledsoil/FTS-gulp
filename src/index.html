@@ -1,4 +1,4 @@
-@@include('./g-include/app--wrap--start.html', {
+@@include('./templates/app--wrap--start.html', {
   "title": "index",
   "bodyAttrs": "",
   "pageClass": "page--index",
@@ -18,7 +18,7 @@
     </h2>
 
     <ul>
-      @@loop('./g-include/loop--cards.html', './g-include/loop--cards.json')
+      @@loop('./templates/loop--cards.html', './templates/loop--cards.json')
     </ul>
 
     <p class="js-yo">
@@ -63,7 +63,7 @@
 
   </main>
 
-@@include('./g-include/app--wrap--end.html', {
+@@include('./templates/app--wrap--end.html', {
   "jsPreApp": "",
   "jsPostApp": "",
   "path": "."

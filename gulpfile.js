@@ -94,7 +94,7 @@ gulp.task('es6', function () {
 
 // https://github.com/coderhaoxin/gulp-file-include
 gulp.task('fileinclude', function () {
-  gulp.src([htmlFiles, '!src/g-include/**'])
+  gulp.src([htmlFiles, '!src/templates/**'])
     .pipe(fileinclude({
       prefix: '@@',
       basepath: '@file'

@@ -15,13 +15,10 @@ npm install
 
 ```
 // Run build and watch for changes
-gulp or npm start
+npm start
 
 // Build dist folder
-npm run dev
-
-// Delete dist folder
-gulp clean
+npm run dist
 ```
 
 ## Project Structure
@@ -70,7 +67,7 @@ Moves font files to `/dist` folder.
 ### styles()
 [gulp-sass](https://www.npmjs.com/package/gulp-sass)
 
-[gulp-autorprefixer](https://www.npmjs.com/package/gulp-autoprefixer)
+[gulp-autoprefixer](https://www.npmjs.com/package/gulp-autoprefixer)
 
 ### es6()
 [webpack](https://webpack.github.io/)

@@ -1,6 +1,6 @@
 {
   "name": "fts-gulp",
-  "version": "0.3.0",
+  "version": "0.3.1",
   "description": "Fresh Tilled Soil Gulp Task Runner",
   "main": "gulpfile.js",
   "scripts": {
@@ -36,7 +36,6 @@
     "webpack-stream": "^3.2.0"
   },
   "dependencies": {
-    "jquery": "^2.2.4",
-    "selectize": "^0.12.4"
+    "jquery": "^3.1.1"
   }
 }

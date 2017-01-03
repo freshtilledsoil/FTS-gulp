@@ -1,4 +1,4 @@
-@@include('./components/app--wrap--start.html', {
+@@include('./partials/app--wrap--start.html', {
   "title": "index",
   "bodyAttrs": "",
   "pageClass": "page--index",
@@ -18,52 +18,20 @@
     </h2>
 
     <ul>
-      @@loop('./components/loop--cards.html', './components/loop--cards.json')
+      @@loop('./partials/loop--cards.html', './partials/loop--cards.json')
+      <li>
+        Static item
+      </li>
     </ul>
 
-    <p class="js-yo">
+    <p>
       JS yo!
+      <span class="js-yo"></span>
     </p>
-
-    <div style="max-width: 250px; margin-bottom: 2em;">
-      <label>
-        Label for select field
-        <select class="selectize">
-          <option>Option 1</option>
-          <option>Option 2</option>
-          <option>Option 3</option>
-        </select>
-      </label>
-    </div>
-
-    <div class="tab-container" data-action="a11y-tabs" id="unique_id">
-
-      <div class="tab-panel-container js-tabs-panel-container">
-        <section class="tab-panel js-tabs__panel" data-tab-label="Yo">
-          <h2>Heading of Panel 1</h2>
-          <p>
-            ...
-          </p>
-        </section> <!-- /.tab-panel -->
-        <section class="tab-panel js-tabs__panel" data-tab-label="tab 2">
-          <h2>Heading of Panel 2</h2>
-          <p>
-            ...
-          </p>
-        </section> <!-- /.tab-panel -->
-        <section class="tab-panel js-tabs__panel" data-tab-label="tab 3">
-          <h2>Heading of Panel 3</h2>
-          <p>
-            ...
-          </p>
-        </section> <!-- /.tab-panel -->
-      </div> <!-- /.tab-panel-container -->
-
-    </div> <!-- /.tab-container -->
 
   </main>
 
-@@include('./components/app--wrap--end.html', {
+@@include('./partials/app--wrap--end.html', {
   "jsPreApp": "",
   "jsPostApp": "",
   "path": "."

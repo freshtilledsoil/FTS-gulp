@@ -23,12 +23,12 @@ import * as jumpLinkFix from './scripts/app_helpers/jump-link-fix';
 // From here down are test scripts for testing this task runner.
 // Delete everything from here down to customize your own project.
 //
-import * as a11yTabs from './scripts/a11y.tabs.js';
-import * as selectize from 'selectize';
+// example of importing a npm installed script
+// import * as selectize from 'selectize';
 
 const es6 = 'ES6 is working.';
 const isJqueryWorking = 'With global access to jQuery.';
 
 console.log(es6);
 $('.js-yo').text(isJqueryWorking);
-$('.selectize').selectize();
+// $('.selectize').selectize();

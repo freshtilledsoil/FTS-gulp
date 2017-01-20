@@ -5,8 +5,8 @@
   "main": "gulpfile.js",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
-    "start": "NODE_ENV=development gulp",
-    "dist": "NODE_ENV=production gulp build"
+    "start": "set NODE_ENV=development && gulp",
+    "dist": "set NODE_ENV=production && gulp build"
   },
   "author": "Fresh Tilled Soil",
   "license": "MIT",

@@ -29,6 +29,7 @@
     "gulp-rename": "^1.2.2",
     "gulp-sass": "^2.0.4",
     "gulp-stylelint": "^3.5.0",
+    "gulp-svg-sprites": "^4.0.2",
     "gulp-svgmin": "^1.2.1",
     "gulp-uglifycss": "^1.0.6",
     "stylelint-config-standard": "^15.0.0",

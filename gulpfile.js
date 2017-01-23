@@ -13,6 +13,7 @@ var autoprefixer = require('gulp-autoprefixer'),
   sass          = require('gulp-sass'),
   stylelint     = require('gulp-stylelint'),
   svgmin        = require('gulp-svgmin'),
+  svgSprite     = require('gulp-svg-sprites'),
   webpackStream = require('webpack-stream');
 
 // FILE STRUCTURE
@@ -42,10 +43,11 @@ gulp.task('serve', function () {
   });
 });
 
-
+// https://github.com/shakyShane/gulp-svg-sprites
 gulp.task('svgmin', function () {
   return gulp.src(svgFiles)
     .pipe(svgmin())
+    .pipe(svgSprite({mode: 'defs'}))
     .pipe(gulp.dest('./dist/assets/icons'))
     .pipe(browserSync.stream());
 });

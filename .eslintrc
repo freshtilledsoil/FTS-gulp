@@ -242,7 +242,9 @@
 
     # disallow use of unary operators, ++ and --
     # http:#eslint.org/docs/rules/no-plusplus
-    "no-plusplus": "warn",
+    "no-plusplus": ["warn", {
+      "allowForLoopAfterthoughts": true
+    }],
 
     # disallow certain syntax forms
     # http:#eslint.org/docs/rules/no-restricted-syntax

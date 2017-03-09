@@ -1,0 +1,48 @@
+{
+  "folders":
+  [
+    {
+      "folder_exclude_patterns": [
+        "dist",
+        "node_modules",
+        "src/assets/fonts",
+        "src/assets/icons/_defs",
+        "src/assets/images",
+        "tasks",
+        "styleguide/vendor",
+        "styleguide/corkscrew",
+        "_project_docs",
+      ],
+
+      "path": ".",
+
+      "file_exclude_patterns": [
+        "*.map",
+        "*.min.css",
+        "*.min.js",
+        "*.sublime-project",
+        ".editorconfig",
+        ".eslintignore",
+        ".eslintrc",
+        ".gitignore",
+        ".gitkeep",
+        ".htaccess",
+        ".htpasswd",
+        ".jsbeautifyrc",
+        ".stylelintignore",
+        ".stylelintrc",
+        "app.css",
+        "Gruntfile.js",
+        "gulpfile.js",
+        "jquery-*",
+        "LICENSE",
+        "package.json",
+        "README.md",
+        "styleguide/bower.json",
+        "styleguide/composer.*",
+        "vendor.*",
+        "webpack.config.js"
+      ]
+    }
+  ]
+}

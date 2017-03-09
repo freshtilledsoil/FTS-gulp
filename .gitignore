@@ -1,6 +1,7 @@
-# Sass
+# Sass / CSS
 .sass-cache/
 .sass-cache/*
+*.map
 
 # NPM
 node_modules/
@@ -10,19 +11,22 @@ _site/
 
 # Editors
 *.esproj
+*.sublime-workspace
+*.swp
 *.tmproj
 *.tmproject
-tmtags
-.*.sw[a-z]
 *.un~
+.*.sw[a-z]
 Session.vim
-*.swp
+tmtags
 
 # Mac OSX
 .DS_Store
+.DS_Store?
 ._*
 .Spotlight-V100
 .Trashes
+ehthumbs.db
 
 # Windows
 Thumbs.db
@@ -30,6 +34,10 @@ Desktop.ini
 
 # SVN
 .svn/
+
+# FTP
+.htaccess
+.htpasswd
 
 # Wordpress
 .htaccess
@@ -50,6 +58,13 @@ sitemap.xml.gz
 readme.html
 license.txt
 
-# project
+
+# Compiled Project Files
 dist/
+dist/*
 /src/assets/js/vendor.concat.js
+app.css
+app.min.css
+app.min.js
+vendor.concat.js
+vendor.min.js

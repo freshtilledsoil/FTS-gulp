@@ -31,4 +31,7 @@ const isJqueryWorking = 'With global access to jQuery.';
 
 console.log(es6);
 $('.js-yo').text(isJqueryWorking);
+
+// example of calling the selectize script
+// that was imported above
 // $('.selectize').selectize();

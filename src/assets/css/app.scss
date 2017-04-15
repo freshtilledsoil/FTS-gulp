@@ -4,14 +4,13 @@ body {
   background: #fff;
   color: #000;
   font-family: "open sans";
-  transition: ease .2s all;
 }
 
 /* Typography
 ---------------------------------------------- */
 
 h1 {
-  font-family: "open sans", "serif";
+  font-family: "serif";
 }
 
 /* Lists
@@ -28,4 +27,5 @@ footer {
   margin-top: 1em;
 }
 
+// example of importing a file installed in node_modules:
 // @import "../../../node_modules/selectize/dist/css/selectize.css";
